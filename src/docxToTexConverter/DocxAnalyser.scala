@@ -6,13 +6,12 @@ import java.io.{ IOException, FileOutputStream, FileInputStream, File, FileNotFo
 import java.util.zip.{ ZipEntry, ZipInputStream }
 import scala.io.Source
 import scala.collection.mutable.Map
-import scala.xml
 
 class DocxAnalyser (implicit folder: File){
-
-
-
-
+  
+  
+  
+  
   def getInfo : Array[String] = {
     val key = Array("Pages", "Words", "Characters", "Paragraphs", "CharactersWithSpaces")
     val value = new Array[String](5)
@@ -23,12 +22,7 @@ class DocxAnalyser (implicit folder: File){
       val end = line.indexOf("</"+x+">")
       value(key.indexOf(x)) = line.substring(start, end)
       println(value(key.indexOf(x)))
-      
     }
- 		value
-  }
-  
-  def doMeth : Unit {
-  	val math = new Math()
+    value
   }
 }
