@@ -6,7 +6,7 @@ import java.io.{ IOException, FileOutputStream, FileInputStream, File, FileNotFo
 import java.util.zip.{ ZipEntry, ZipInputStream }
 
 class Unzipper (input: File){
-  var outputFolder = new File("")
+  private var outputFolder = new File("")
   
   def run : File = {
     outputFolder = chooseFolder
@@ -57,8 +57,8 @@ class Unzipper (input: File){
   }
   private def deleteHelper(f : File):Unit = {
     if (f.isDirectory()) {
-    for (c <- f.listFiles())
-      deleteHelper(c);
+      for (c <- f.listFiles())
+        deleteHelper(c);
     }
     if (!f.delete())
       throw new FileNotFoundException("Failed to delete file: " + f);
