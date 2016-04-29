@@ -2,12 +2,14 @@ package docxToTexConverter
 
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.io.{ IOException, FileOutputStream, FileInputStream, File }
+import java.io.{ IOException, FileOutputStream, FileInputStream, File, FileNotFoundException }
 import java.util.zip.{ ZipEntry, ZipInputStream }
 
-class Unzipper (val input: File){
+class Unzipper (input: File){
+  var outputFolder = new File("")
+  
   def run : File = {
-    val outputFolder = chooseFolder
+    outputFolder = chooseFolder
     val buffer = new Array[Byte](1024)
     	
     try{
@@ -50,14 +52,27 @@ class Unzipper (val input: File){
     }
     outputFolder
   }
+  def delete : Unit = {
+    deleteHelper(outputFolder)
+  }
+  private def deleteHelper(f : File):Unit = {
+    if (f.isDirectory()) {
+    for (c <- f.listFiles())
+      deleteHelper(c);
+    }
+    if (!f.delete())
+      throw new FileNotFoundException("Failed to delete file: " + f);
+  }
   
   private def chooseFolder : File = { //Chooses a folder that doesn't exist
     var path = input.getPath.substring(0,input.getPath.length-5) //Removes .docx from string
+    val absPath = path
     var i = 1
     while(Files.isDirectory(Paths.get(path))) {
-      path = path + "(" + i + ")"
+      path = absPath + "(" + i + ")"
       i += 1
     }
     new File(path)
   }
+  
 }

@@ -16,5 +16,6 @@ object docxToTex {
     
     val uz = new Unzipper(input)
     uz.run
+    uz.delete
   }
 }
