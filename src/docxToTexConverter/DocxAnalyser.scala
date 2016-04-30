@@ -6,6 +6,7 @@ import java.io.{ IOException, FileOutputStream, FileInputStream, File, FileNotFo
 import java.util.zip.{ ZipEntry, ZipInputStream }
 import scala.io.Source
 import scala.collection.mutable.Map
+import scala.xml._
 
 class DocxAnalyser (folder: File){
 
@@ -18,7 +19,7 @@ class DocxAnalyser (folder: File){
     key.foreach { x => println }
     val value = new Array[String](5)
 
-    val line = scala.xml.XML.loadFile(metadata)
+    val line = XML.loadFile(metadata)
 
     for (x <- key) {
       value(key.indexOf(x)) = (line \ x).text
