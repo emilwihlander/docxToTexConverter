@@ -8,20 +8,16 @@ import scala.io.Source
 import scala.collection.mutable.Map
 
 class DocxAnalyser (implicit folder: File){
-  
-  
-  
-  
+
   def getInfo : Array[String] = {
     val key = Array("Pages", "Words", "Characters", "Paragraphs", "CharactersWithSpaces")
+    key.foreach { x => println }
     val value = new Array[String](5)
     val filename = folder.getPath + "/docProps/app.xml"
-    val line = Source.fromFile(filename).mkString
-    for (x <- key) {
-      val start = line.indexOf("<"+x+">")+x.length+2
-      val end = line.indexOf("</"+x+">")
-      value(key.indexOf(x)) = line.substring(start, end)
-      println(value(key.indexOf(x)))
+    val line = scala.xml.XML.loadFile(filename)
+
+    for (x <- 0 to key.length) {
+      value(x) = (line \ key(x)).text
     }
     value
   }
