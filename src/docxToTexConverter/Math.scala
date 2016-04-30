@@ -4,6 +4,6 @@ import java.io.{ IOException, FileOutputStream, FileInputStream, File, FileNotFo
 import scala.io.Source
 import scala.xml
 
-class Math (folder: File) {
+class Math (document: scala.xml.Elem) {
 
 }

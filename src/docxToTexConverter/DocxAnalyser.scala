@@ -27,6 +27,6 @@ class DocxAnalyser (folder: File){
   }
 
   def getMath : Unit = {
-  	val math = new Math(folder)
+  	val math = new Math(scala.xml.XML.loadFile(document))
   }
 }
