@@ -13,7 +13,6 @@ class DocxAnalyser (folder: File){
 	val metadata = folder.getPath + "/docProps/app.xml"
 	val document = folder.getPath + "/word/document.xml"
 
-
   def getInfo : Array[String] = {
     val key = Array("Pages", "Words", "Characters", "Paragraphs", "CharactersWithSpaces")
     key.foreach { x => println }
@@ -28,6 +27,7 @@ class DocxAnalyser (folder: File){
   }
 
   def getMath : Unit = {
-  	val math = new Math(XML.loadFile(document))
+  	val math = new Math(document)
+  	math.run
   }
 }
