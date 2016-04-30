@@ -8,10 +8,10 @@ import scala.io.Source
 import scala.collection.mutable.Map
 
 class DocxAnalyser (implicit folder: File){
-  
-  
-  
-  
+
+
+
+
   def getInfo : Array[String] = {
     val key = Array("Pages", "Words", "Characters", "Paragraphs", "CharactersWithSpaces")
     val value = new Array[String](5)
@@ -24,5 +24,9 @@ class DocxAnalyser (implicit folder: File){
       println(value(key.indexOf(x)))
     }
     value
+  }
+
+  def getMath : Unit = {
+  	val math = new Math()
   }
 }
