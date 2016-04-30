@@ -9,15 +9,16 @@ import scala.collection.mutable.Map
 
 class DocxAnalyser (folder: File){
 
-
+	val metadata = folder.getPath + "/docProps/app.xml"
+	val document = folder.getPath + "/word/document.xml"
 
 
   def getInfo : Array[String] = {
     val key = Array("Pages", "Words", "Characters", "Paragraphs", "CharactersWithSpaces")
     key.foreach { x => println }
     val value = new Array[String](5)
-    val filename = folder.getPath + "/docProps/app.xml"
-    val line = scala.xml.XML.loadFile(filename)
+
+    val line = scala.xml.XML.loadFile(metadata)
 
     for (x <- key) {
       value(key.indexOf(x)) = (line \ x).text
