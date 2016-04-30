@@ -26,6 +26,6 @@ class DocxAnalyser (folder: File){
   }
 
   def getMath : Unit = {
-  	val math = new Math()
+  	val math = new Math(folder)
   }
 }
