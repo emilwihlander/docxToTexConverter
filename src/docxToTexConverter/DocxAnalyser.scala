@@ -13,28 +13,26 @@ class DocxAnalyser (folder: File){
 	val metadata = folder.getPath + "/docProps/app.xml"
 	val metadata2 = folder.getPath + "/docProps/core.xml"
 	val document = folder.getPath + "/word/document.xml"
-
+	/**
+	 * @return A hashMap with Pages, Words, Characters, Paragraphs, CharactersWithSpaces, Creator and Created.
+	 */
   def getInfo : Map[String, String] = {
     val map : Map[String, String] = Map()
 
+    //Retrieves all the valuable data from /docProps/app.xml
     val key = Array("Pages", "Words", "Characters", "Paragraphs", "CharactersWithSpaces")
     val line = XML.loadFile(metadata)
+    key.map { x =>  map put (x, (line \ x).text)}
 
-    for (x <- key) {
-      map put (x, (line \ x).text)
-    }
-
+    //Retrieves all the valuable data from /docProps/core.xml
     val key2 = Array("Creator", "Created")
     val line2 = XML.loadFile(metadata2)
-
-    for (x <- key2) {
-      map put (x, (line2 \ x).text)
-    }
+    key2.map { x =>  map put (x, (line2 \ x).text)}
 
     map
   }
 
   def getMath : Unit = {
-  	val math = new Math(XML.loadFile(document))
+  	val math = new Math("XML.loadFile(document)")
   }
 }
